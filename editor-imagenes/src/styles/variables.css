@@ -1,0 +1,26 @@
+:root{
+    --bg-main: #f8fafc;         /* Fondo de la app (Gris ultra claro) */
+  --bg-card: #ffffff;         /* Fondo de las cards (Blanco puro para contrastar con el fondo) */
+  
+  /* Botones y Acentos */
+  --btn-primary: #0f172a;     /* Botón principal: Negro/Azul marino oscuro (Máximo contraste) */
+  --btn-primary-text: #ffffff;/* Texto del botón principal */
+  --btn-primary-hover: #1e293b;
+  
+  --btn-secondary: #f1f5f9;   /* Botón secundario: Gris muy claro */
+  --btn-secondary-text: #334155;
+  --btn-secondary-hover: #e2e8f0;
+
+  /* --- JERARQUÍA DE TEXTO --- */
+  --text-title: #0f172a;      /* Títulos: Casi negro, peso fuerte */
+  --text-main: #334155;       /* Texto principal: Gris oscuro legible */
+  --text-muted: #64748b;      /* Texto secundario: Gris medio para detalles */
+
+  /* --- BORDES Y SOMBRAS (Minimalistas) --- */
+  --border-color: #e2e8f0;    /* Bordes sutiles */
+  --radius-minimal: 8px;      /* Radio de borde limpio y moderno (ni cuadrado ni circular) */
+  
+  /* Sombra suave de tres capas para un efecto "elevado" natural y limpio */
+  --shadow-smooth: 0 1px 3px rgba(0, 0, 0, 0.05), 
+                    0 4px 12px rgba(0, 0, 0, 0.03);
+}
