@@ -1,6 +1,14 @@
 import { useEffect, useRef } from "react";
 
-export  function VistaPrevia({imagenOriginal}){
+const FILTROS_CSS={
+    Original : '',
+    Gris: 'grayscale(100%)',
+    Sepia: 'sepia(100%)',
+    'Blanco y Negro':'grayscale(100%) contrast(120%)',
+    Desenfoque: 'blur(4px)',
+};
+
+export  function VistaPrevia({imagenOriginal, rotacion, volteoH,VolteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada}){
     
     const canvasRef = useRef(null);
 
@@ -11,9 +19,26 @@ export  function VistaPrevia({imagenOriginal}){
         const img = new Image();
 
         img.onload=()=>{
-            canvas.save();
+            const deCostado = rotacion === 90 || rotacion === 270;
+            canvas.width = deCostado ? img.height:img.width;
+            canvas.height = deCostado ? img.width:img.height;
+            ctx.save();
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            //moviendo el 'origen' al centro del canva
+            //para que gire en el centro
+
+            ctx.translate(canvas.width/2, canvas.height/2);
+            ctx.rotate((rotacion * Math.PI)/180);
+            ctx.scale(volteoH ? -1 :1, VolteoV ? -1 : 1);
+
+            const filtroBase= FILTROS_CSS[filtroActivo] || '';
+            ctx.filter = `${filtroBase} brightness(${brillo}%) contrast(${contraste}%) raturate(${saturacion}%)`.trim();
+            ctx.drawImage(img, -img.width / 2, -img.height / 2);
+            ctx.restore();
         }
-    })
+        img.src=imagenOriginal; 
+    },[imagenOriginal,rotacion,volteoH,VolteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada]);
 
     
     return(
@@ -21,7 +46,7 @@ export  function VistaPrevia({imagenOriginal}){
             <h3>Vista Previa</h3>
             <div className="vista-previa-area">
                 {imagenOriginal ?(
-                    <canvas Ref={canvasRef} className="canvas-editor"/>
+                    <canvas ref={canvasRef} className="canvas-editor"/>
                 ):(
                 <p className="placeholder">Aqui aparece tu imagen</p>
                 )}

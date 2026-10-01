@@ -22,7 +22,7 @@ export default function CargarFotografia({onImagenCargada}){
     function procesarArchivo(Archivo){
         const mensajeError = validarArchivo(Archivo);
         if(mensajeError){
-            serError(mensajeError);
+            setError(mensajeError);
             return;
         }
         setError('');
@@ -38,23 +38,45 @@ export default function CargarFotografia({onImagenCargada}){
         const Archivo = evento.target.files[0];
         if(Archivo) procesarArchivo(Archivo);
     }
+    function manejarDrop(evento){
+        evento.preventDefault();
+        setArrastrado(false);
+        const Archivo = evento.dataTransfer.files[0];
+        if(Archivo)  procesarArchivo(Archivo);
+    }
+
+    function manejarDragOver(evento){
+        evento.preventDefault();
+        setArrastrado(true);
+    }
+    function manejarDragLeave(){
+        setArrastrado(false);
+    }
 
     return(
         <section className="panel">
             <h3>Cargar Fotos</h3>
-            <div className="dropzone">
+            <div 
+                className={`dropzone ${arrastrado ? 'dropzone-activo':''}`}
+                onDrop={manejarDrop}
+                onDragOver={manejarDragOver}
+                onDragLeave={manejarDragLeave}
+                
+                >
                 <p>subir</p>
                 <p>Arrastrar una Imagen</p>
                 <p>o</p>
-                <button className="btn-primario" >
-                    seleccinar Archivo
+                <label className="btn-primario" >
+                    seleccionar imagenes
                     <input 
                         type="file"
                         accept="image/*"
                         onChange={manejarSeleccion}
                         style={{display:"none"}}
                         />
-                </button>
+                </label>
+                    
+            
                 <p className="hint">Formatos permitidos: JPG * PNG * WEBP</p>
             </div>
            
