@@ -8,7 +8,7 @@ const FILTROS_CSS={
     Desenfoque: 'blur(4px)',
 };
 
-export  function VistaPrevia({imagenOriginal, rotacion, volteoH,VolteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada}){
+export  function VistaPrevia({imagenOriginal, rotacion, volteoH,volteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada}){
     
     const canvasRef = useRef(null);
 
@@ -30,15 +30,15 @@ export  function VistaPrevia({imagenOriginal, rotacion, volteoH,VolteoV,filtroAc
 
             ctx.translate(canvas.width/2, canvas.height/2);
             ctx.rotate((rotacion * Math.PI)/180);
-            ctx.scale(volteoH ? -1 :1, VolteoV ? -1 : 1);
+            ctx.scale(volteoH ? -1 :1, volteoV ? -1 : 1);
 
             const filtroBase= FILTROS_CSS[filtroActivo] || '';
-            ctx.filter = `${filtroBase} brightness(${brillo}%) contrast(${contraste}%) raturate(${saturacion}%)`.trim();
+            ctx.filter = `${filtroBase} brightness(${brillo}%) contrast(${contraste}%) saturate(${saturacion}%)`.trim();
             ctx.drawImage(img, -img.width / 2, -img.height / 2);
             ctx.restore();
         }
         img.src=imagenOriginal; 
-    },[imagenOriginal,rotacion,volteoH,VolteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada]);
+    },[imagenOriginal,rotacion,volteoH,volteoV,filtroActivo,brillo,contraste,saturacion,onImagenProcesada]);
 
     
     return(

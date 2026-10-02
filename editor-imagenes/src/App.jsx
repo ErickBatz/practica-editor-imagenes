@@ -65,7 +65,7 @@ function App() {
           brillo={brillo}
           contraste={contraste}
           saturacion={saturacion}
-          onImagenCargada={setImagenProcesada}
+          onImagenProcesada={setImagenProcesada}
           />
         
         <HerramientasEdicion
