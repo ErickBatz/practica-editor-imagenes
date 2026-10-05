@@ -1,0 +1,18 @@
+:root{
+    --color-texto-principal:#e0e0e0;
+    --color-fondo: #121212;
+    --color-card:#1e1e1e;
+    --radio-borde: 8px;
+    --color-botton: #3b82f6;
+    --color-bordes: rgba(255,255,255,0.12);
+    --color-botton-secundario: #2d2d2d;
+    --sombra-suave:0 10px 25px -5px rgba(0,0,0,0.5);
+    --color-hover: #376abb ;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+}
