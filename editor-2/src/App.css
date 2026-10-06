@@ -70,3 +70,61 @@
   border-radius: var(--radio-borde);
   cursor: pointer;
 }
+.btn-action {
+  background: var(--color-botton);
+}
+.grupo{
+  margin-bottom: 1.25rem;
+}
+.grupo-titulo{
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-texto-principal);
+  margin-bottom: 0.5rem;
+}
+
+.filtros-grid{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0.5rem;
+}
+.filtro-item{
+  border: 1px solid var(--color-bordes);
+  border-radius: var(--radio-borde);
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.botones-transformar{
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.acciones-finales{
+  margin-top: 10px;
+  display: flex;
+}
+
+@media(max-width:900px){
+  .editor-layout{
+    grid-template-columns: 1fr;
+  }
+}
+
+.dropzone-activo{
+  border-color: var(--color-bordes);
+  background: var(--color-fondo);
+}
+.canvas-editor{
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radio-borde);
+}
+
+.error-msg{
+  color: brown;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
