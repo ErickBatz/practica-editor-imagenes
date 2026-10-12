@@ -1,4 +1,4 @@
-const FILTROS = ['Original','Gris','Sepia','Blanco y Negro','Desenfoque'];
+const FILTROS = ['Original','Gris','Sepia','Blanco y Negro','Desenfoque','Invertido'];
 
 export default function HerramientasEditor({
     brillo, 
@@ -16,7 +16,9 @@ export default function HerramientasEditor({
     onCambiarBrillo,
     onCambiarSaturacion,
     onCambiarContraste,
-    onRestablecer
+    onRestablecer,
+    onCambiarDesenfoque,
+    desenfoque
 
 }){
 
@@ -39,6 +41,19 @@ export default function HerramientasEditor({
                         </button>
                     ))
                     }
+
+                    <label>
+                        desenfoque{desenfoque}px
+                        <input 
+                            type="range"
+                            min="0"
+                            max="20"
+                            value={desenfoque}
+                            disabled={!imagenCargada}
+                            onChange={(e)=>onCambiarDesenfoque(Number(e.target.value))}
+                            
+                            />
+                    </label>
                 </div>
             </div>
 

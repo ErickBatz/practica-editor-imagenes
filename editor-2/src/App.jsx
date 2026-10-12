@@ -1,8 +1,12 @@
 import { useState } from "react";
+import Header from  './components/Header'
+import CargarFotografia from './components/CargarFotografia'
+import HerramientasEditor from './components/HerramientasEditor'
+import VistaPrevia from './components/VistaPrevia'
+import './styles/variables.css'
+import './App.css'
 
-
-
-function App(){
+export default function App(){
   const [imagenOriginal, setImagenOriginal] = useState(null);
   const [rotacion, setRotacion] = useState(0);
   const [volteoH, setVolteoH] = useState(false);
@@ -11,15 +15,16 @@ function App(){
   const [brillo, setBrillo] = useState(100);
   const [contraste, setContraste] = useState(100);
   const [saturacion, setSaturacion] = useState(100);
+  const [desenfoque, setDesenfoque] = useState(0);
 
   function rotar(grados){
-    setRotacion(prev=>(rotacion+grados+360)%360);
+    setRotacion(prev => (prev + grados + 360 ) % 360);
   }
   function voltearHorizontal(){
     setVolteoH(prev=>!prev);
   }
   function volteoVertical(){
-    setVolteoV(prev=>prev);
+    setVolteoV(prev=>!prev);
   }
   function Restablecer(){
     setRotacion(0);
@@ -29,6 +34,7 @@ function App(){
     setBrillo(100);
     setSaturacion(100);
     setContraste(100);
+    setDesenfoque(0);
   }
 
   return(
@@ -36,7 +42,7 @@ function App(){
       <Header/>
       <main className="editor-layout">
         <CargarFotografia
-          imagenOriginal ={setImagenOriginal}
+          onImagenCargada={setImagenOriginal}
         />
         <VistaPrevia
           imagenOriginal={imagenOriginal}
@@ -47,9 +53,10 @@ function App(){
           brillo={brillo}
           contraste={contraste}
           saturacion={saturacion}
+          desenfoque={desenfoque}
         
         />
-        <HerramientasEdioion
+        <HerramientasEditor
           imagenCargada={!!imagenOriginal}
           filtroActivo={filtroActivo}
           brillo={brillo}
@@ -63,7 +70,11 @@ function App(){
           onRotar180={()=>rotar(180)}
           onVoltearHorizontal={voltearHorizontal}
           onVoltearVertical={volteoVertical}
-          onRegresarRotacion
+          onRegresarRotacion={()=>setRotacion(0)}
+          onSeleccionarFiltro={setFilroActivo}
+          onCambiarDesenfoque = {setDesenfoque}
+          desenfoque={desenfoque}
+          onRestablecer={Restablecer}
         />
       </main>
     </div>
