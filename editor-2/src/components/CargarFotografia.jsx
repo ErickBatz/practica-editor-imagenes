@@ -1,86 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const FORMATO_PERMITIDO = ['image/jpeg','image/jpg','image/png','image/webp'];
-const TAMANIO_MAXIMO_MB =10;
+const FORMATO_PERMITIDO = ['image/jpeg','image/png','image/jpg','image/webp'];
+const TAMANIO_MAXIMO = 10;
 
 function validarArchivo(Archivo){
     if(!FORMATO_PERMITIDO.includes(Archivo.type)){
-        return 'Formato no permitido, Debe ser JPG, PNG, WEBP';
+        return 'formato no permitido '
     }
-    const tamanoMB = Archivo.size/(1024*1024);
-
-    if(tamanoMB > TAMANIO_MAXIMO_MB){
-        return(`El archivo pesa: ${tamanoMB} y el peso maximo es de ${TAMANIO_MAXIMO_MB}`);
+    const tamanioMB = Archivo.size/(1024*1024);
+    if(tamanioMB>TAMANIO_MAXIMO){
+        return(`Tamanio de Archivo ${tamanioMB} debe ser ${TAMANIO_MAXIMO}`);
     }
-    return  null;
+    return(null);
 }
 
-export default function CargarFotografia({onImagenCargada}){
-
+export default function CargarFotografia({imagenCargada}){
     const [error, setError] = useState('');
-    const [arrastrado, setArrastrado] = useState(false);
-
-    function procesarArchivo(Archivo){
+    
+    function procesarArchivo(Archivo) {
         const mensajeError = validarArchivo(Archivo);
         if(mensajeError){
-            setError(mensajeError);
+            setError(mensajeError)
             return;
-        } 
-        const lector = new FileReader;
-        lector.onload=()=>{
-            onImagenCargada(lector.result);
-        };
-        lector.readAsDataURL(Archivo)
+        }   
+        setError('');
+
+        const lector = new FileReader();
+        lector.onload = () =>{
+            imagenCargada(lector.result);
+            lector.readAsDataURL(Archivo);
+        }
     }
 
-    function manejarSeleccion(evento){
-        const Archivo = evento.target.files[0];
+    function manejarSeleccion(event){
+        event.preventDefault();
+        const Archivo = event.target.files[0];
         if(Archivo) procesarArchivo(Archivo)
     }
-    
-    function manejarDrop(evento){
-        evento.preventDefault();
-        setArrastrado(false);
-        const Archivo = evento.dataTransfer.files[0];
-        if(Archivo) procesarArchivo(Archivo);
-    }
-
-    function manejarDragOver(evento){
-        evento.preventDefault();
-        setArrastrado(true);
-    }
-    function manejarDragLeave(){
-        setArrastrado(false);
-    }
-
-    return(
-        <section className="panel">
-            <h3>Cargar Fotografia</h3>
-            <div>
-                <p>subir</p>
-                <p>Atrastrar una imagen</p>
-                <p>o</p>
-                <label className="btn-primario">
-                    seleccionar archivo
-                    <input  
-                        type="file"
-                        accept="image/*"
-                        onChange={manejarSeleccion}
-                        style={{display: "none"}}
-                        />
-                </label>
-                <p className="hint">formatos permitidos: JPG * PNG * WEBP</p>
-            </div>
-            {error  && <p className="error-msg" >{error}</p>}
-
-            <p className="hint-small">
-                El tamaño macimos de las imagenes permitido es de 10MB. La imagen de procesa en su navegador
-            </p>
-
-        </section>
-
-    );
-
-
 }
-

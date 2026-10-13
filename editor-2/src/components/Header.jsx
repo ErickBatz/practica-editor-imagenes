@@ -1,13 +1,11 @@
-
-
 export default function Header(){
     return(
-        <header className="app-header" > 
+        <div className="app-header">
             <div className="logo">Editor Imagenes</div>
-            <div className="header-actions">
-                <button className="btn-regresar" > Regresar</button>
-                <button className="btn-galeria" >Galeria</button>
+            <div className="acciones header">
+                <button>Regresar</button>
+                <button>Usuario</button>
             </div>
-        </header>
+        </div>
     );
 }
